@@ -1,7 +1,8 @@
+// See https://dev.to/bhagatpratik07/next-js-authentication-with-netlify-identity-3ghi
+
 export default function Netlify() {
     return (
         <>
-            <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         </>
     )
 }
