@@ -1,7 +1,7 @@
 import MainButton from "@components/MainButton";
 
 const signup = () => {
-    alert('Signup');
+    netlifyIdentity.open('signup');
 };
 
 export default function SignupButton() {
