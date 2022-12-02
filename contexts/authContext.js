@@ -29,15 +29,20 @@ const AuthContextProvider = ({children}) => {
     }, []);
 
     const login = () => {
-        netlifyIdentity.open();
+        netlifyIdentity.open("login");
     };
 
     const logout = () => {
         netlifyIdentity.logout();
     };
 
+    const signup = () => {
+        netlifyIdentity.open("signup");
+    };
+
     const context = {
         login,
+        signup,
         logout,
         user,
     };
