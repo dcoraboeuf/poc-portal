@@ -16,9 +16,10 @@ export default function Home() {
             <main>
                 <Page title="Welcome to the Ontrack Customer Portal!">
                     <MainButtonBar>
-                        <MainButton title="Login"/>
-                        <MainButton title="Signup"/>
+                        <MainButton title="Login" action={() => alert('Login')}/>
+                        <MainButton title="Signup" action={() => alert('Signup')}/>
                     </MainButtonBar>
+                    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
                 </Page>
             </main>
 
