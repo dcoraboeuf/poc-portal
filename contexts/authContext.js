@@ -1,4 +1,4 @@
-import { createContext, useEffect } from "react";
+import {createContext, useEffect, useState} from "react";
 import netlifyIdentity from "netlify-identity-widget";
 
 export const AuthContext = createContext({
@@ -11,10 +11,38 @@ export const AuthContext = createContext({
 });
 
 const AuthContextProvider = ({children}) => {
+    const [user, setUser] = useState(null);
     useEffect(() => {
+        // on login
+        netlifyIdentity.on("login", (user) => {
+            setUser(user);
+            netlifyIdentity.close();
+        });
+
+        // on logout
+        netlifyIdentity.on("logout", (user) => {
+            setUser(null);
+        });
+
+        // on init
         netlifyIdentity.init();
     }, []);
-    return <AuthContext.Provider value="">{children}</AuthContext.Provider>;
+
+    const login = () => {
+        netlifyIdentity.open();
+    };
+
+    const logout = () => {
+        netlifyIdentity.logout();
+    };
+
+    const context = {
+        login,
+        logout,
+        user,
+    };
+
+    return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;
