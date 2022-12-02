@@ -7,9 +7,6 @@ function Application({Component, pageProps}) {
             <MainLayout>
                 <Component {...pageProps} />
             </MainLayout>
-
-            <script type="text/javascript"
-                    src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
         </>
     )
 }

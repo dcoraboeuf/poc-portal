@@ -7,8 +7,6 @@ export default function MainLayout({children}) {
             <div className="container">
                 <Head>
                     <title>Ontrack Customer Portal</title>
-                    <link rel="icon" href="/favicon.ico"/>
-                    <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
                 </Head>
 
                 <main className="p-6">
