@@ -1,3 +1,5 @@
+// https://dev.to/bhagatpratik07/next-js-authentication-with-netlify-identity-3ghi
+
 import {createContext, useEffect, useState} from "react";
 import netlifyIdentity from "netlify-identity-widget";
 

@@ -1,5 +1,4 @@
 import {Html, Head, Main, NextScript} from 'next/document'
-import Netlify from "@components/Netlify";
 
 export default function Document() {
     return (
@@ -11,7 +10,6 @@ export default function Document() {
             <body>
             <Main/>
             <NextScript/>
-            <Netlify/>
             </body>
         </Html>
     )
