@@ -2,8 +2,8 @@ import Head from 'next/head'
 import Page from '@components/Page'
 import Footer from '@components/Footer'
 import MainButtonBar from '@components/MainButtonBar'
-import MainButton from '@components/MainButton'
 import LoginButton from '@components/LoginButton'
+import SignupButton from "@components/SignupButton";
 
 export default function Home() {
     return (
@@ -18,7 +18,7 @@ export default function Home() {
                 <Page title="Welcome to the Ontrack Customer Portal!">
                     <MainButtonBar>
                         <LoginButton/>
-                        <MainButton title="Signup" action={() => alert('Signup')}/>
+                        <SignupButton/>
                     </MainButtonBar>
                     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
                 </Page>
