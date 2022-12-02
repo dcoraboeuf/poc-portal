@@ -11,7 +11,7 @@ export default function Home() {
                 <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
             </Head>
 
-            <main className="container">
+            <main>
                 <Header title="Welcome to the Ontrack Customer Portal!"/>
             </main>
 
