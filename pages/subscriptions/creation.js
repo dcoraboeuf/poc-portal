@@ -1,13 +1,44 @@
 import Header from "@components/Header";
 import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
+import {Fragment, useEffect, useState} from "react";
+
+async function getProducts() {
+    fetch('/.netlify/functions/sync-get-products');
+}
 
 export default function SubscriptionCreation() {
-    fetch('/.netlify/functions/sync-get-products');
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        async function getProducts() {
+            const res =  await fetch('/.netlify/functions/sync-get-products');
+            if (res.ok) {
+                const data = await res.json();
+                setProducts(data);
+            } else {
+                throw new Error(`Failed to fetch the list of available products (code = ${res.statusCode}.`);
+            }
+        }
+        getProducts();
+    }, []);
     return (
         <>
             <Header text="New subscription"/>
-            <span>Creation of subscription</span>
+            <p>Choose the product you want to subscribe to:</p>
+            <div className="flex justify-center">
+                {products.map(product =>
+                    <Fragment key={product.id}>
+                        <div>
+                            <div className="font-bold">
+                                {product.name}
+                            </div>
+                            <div>
+                                {product.description}
+                            </div>
+                        </div>
+                    </Fragment>
+                )}
+            </div>
             <MainButtonBar>
                 <CancelButton/>
             </MainButtonBar>
