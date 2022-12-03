@@ -13,6 +13,11 @@ exports.handler = async function () {
             body: JSON.stringify(await res.json()),
         };
     } else {
-        return res;
+        return {
+            statusCode: res.status,
+            body: JSON.stringify({
+                message: "Cannot get the list of products from Ontrack Pro Sync."
+            })
+        };
     }
 };
