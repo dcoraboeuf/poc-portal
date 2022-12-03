@@ -3,7 +3,7 @@ import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
 
 export default function SubscriptionCreation() {
-    fetch('./netlify/functions/sync/get-products');
+    fetch('/.netlify/functions/sync-get-products');
     return (
         <>
             <Header text="New subscription"/>
