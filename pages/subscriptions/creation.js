@@ -8,7 +8,11 @@ export default function SubscriptionCreation() {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         async function getProducts() {
-            const res =  await fetch('/.netlify/functions/sync-get-products');
+            const res =  await fetch('/.netlify/functions/sync-get-products', {
+                headers: {
+                    Authorization: `Bearer ${process.env.AUTH_TOKEN}`,
+                }
+            });
             if (res.ok) {
                 const data = await res.json();
                 setProducts(data);
