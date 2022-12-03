@@ -3,10 +3,6 @@ import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
 import {Fragment, useEffect, useState} from "react";
 
-async function getProducts() {
-    fetch('/.netlify/functions/sync-get-products');
-}
-
 export default function SubscriptionCreation() {
     const [products, setProducts] = useState([]);
     useEffect(() => {
@@ -16,7 +12,7 @@ export default function SubscriptionCreation() {
                 const data = await res.json();
                 setProducts(data);
             } else {
-                throw new Error(`Failed to fetch the list of available products (code = ${res.statusCode}.`);
+                throw new Error(`Failed to fetch the list of available products (code = ${res.status}).`);
             }
         }
         getProducts();
