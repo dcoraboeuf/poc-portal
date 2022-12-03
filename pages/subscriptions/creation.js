@@ -2,6 +2,7 @@ import Header from "@components/Header";
 import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
 import {Fragment, useEffect, useState} from "react";
+import SubmitButton from "@components/SubmitButton";
 
 export default function SubscriptionCreation() {
     const [products, setProducts] = useState([]);
@@ -20,6 +21,7 @@ export default function SubscriptionCreation() {
     return (
         <>
             <Header text="New subscription"/>
+
             <p>Choose the product you want to subscribe to:</p>
             <div className="flex justify-center">
                 {products.map(product =>
@@ -35,7 +37,19 @@ export default function SubscriptionCreation() {
                     </Fragment>
                 )}
             </div>
+
+            <p>Choose the name for your instance:</p>
+            <p>The URL of your Ontrack installation will be <code>https://`name`.ontrack.run</code></p>
+
+            <form method="post">
+                <label>
+                    Instance name:
+                    <input type="text" required={true}/>
+                </label>
+            </form>
+
             <MainButtonBar>
+                <SubmitButton/>
                 <CancelButton/>
             </MainButtonBar>
         </>

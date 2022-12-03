@@ -1,5 +1,4 @@
 exports.handler = async function () {
-    console.log("env = ", process.env);
     let username = process.env.ONTRACK_PRO_SYNC_AUTH_USERNAME;
     let password = process.env.ONTRACK_PRO_SYNC_AUTH_TOKEN;
     let authString = `${username}:${password}`
