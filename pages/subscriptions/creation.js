@@ -4,11 +4,34 @@ import CancelButton from "@components/CancelButton";
 import {Fragment, useEffect, useState} from "react";
 import SubmitButton from "@components/SubmitButton";
 
+async function submitSubscriptionForm(event) {
+    // Stop the form from submitting and refreshing the page.
+    event.preventDefault();
+    // Instance name validation
+    const instanceName = document.querySelector('#instanceName').value;
+    const res = await fetch('/.netlify/functions/sync-instance-check', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: instanceName
+        })
+    });
+    if (!res.ok) {
+        throw new Error(`Cannot validate the instance name.`);
+    }
+    const {available} = await res.json();
+    if (!available) {
+        throw new Error(`Instance name "${instanceName}" is not available.`);
+    }
+}
+
 export default function SubscriptionCreation() {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         async function getProducts() {
-            const res =  await fetch('/.netlify/functions/sync-get-products');
+            const res = await fetch('/.netlify/functions/sync-get-products');
             if (res.ok) {
                 const data = await res.json();
                 setProducts(data);
@@ -16,6 +39,7 @@ export default function SubscriptionCreation() {
                 throw new Error(`Failed to fetch the list of available products (code = ${res.status}).`);
             }
         }
+
         getProducts();
     }, []);
     return (
@@ -25,6 +49,7 @@ export default function SubscriptionCreation() {
             <p>Choose the product you want to subscribe to:</p>
             <div className="flex justify-center">
                 {products.map(product =>
+                    // TODO Create a card component
                     <Fragment key={product.id}>
                         <div>
                             <div className="font-bold">
@@ -41,10 +66,13 @@ export default function SubscriptionCreation() {
             <p>Choose the name for your instance:</p>
             <p>The URL of your Ontrack installation will be <code>https://`name`.ontrack.run</code></p>
 
-            <form method="post">
+            <form onSubmit={submitSubscriptionForm}>
                 <label>
                     Instance name:
-                    <input type="text" required={true} className="
+                    <input id="instanceName" type="text"
+                           required={true}
+                           pattern="[a-z][a-z0-9]{1,32}"
+                           className="
                         form-control
                         block
                         w-100
@@ -62,12 +90,12 @@ export default function SubscriptionCreation() {
                         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
                         "/>
                 </label>
+                <MainButtonBar>
+                    <SubmitButton/>
+                    <CancelButton/>
+                </MainButtonBar>
             </form>
 
-            <MainButtonBar>
-                <SubmitButton/>
-                <CancelButton/>
-            </MainButtonBar>
         </>
     )
 }
