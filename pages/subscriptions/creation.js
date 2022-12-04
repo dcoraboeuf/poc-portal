@@ -3,6 +3,7 @@ import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
 import {Fragment, useEffect, useState} from "react";
 import SubmitButton from "@components/SubmitButton";
+import FormTemplate from "@components/FormTemplate";
 
 async function submitSubscriptionForm(event) {
     // Stop the form from submitting and refreshing the page.
@@ -14,9 +15,9 @@ async function submitSubscriptionForm(event) {
         throw new Error(`Cannot validate the instance name.`);
     }
     const {available} = await res.json();
-    if (!available) {
+    // if (!available) {
         throw new Error(`Instance name "${instanceName}" is not available.`);
-    }
+    // }
 }
 
 export default function SubscriptionCreation() {
@@ -58,7 +59,7 @@ export default function SubscriptionCreation() {
             <p>Choose the name for your instance:</p>
             <p>The URL of your Ontrack installation will be <code>https://`name`.ontrack.run</code></p>
 
-            <form onSubmit={submitSubscriptionForm}>
+            <FormTemplate onSubmit={submitSubscriptionForm}>
                 <label>
                     Instance name:
                     <input id="instanceName" type="text"
@@ -86,7 +87,7 @@ export default function SubscriptionCreation() {
                     <SubmitButton/>
                     <CancelButton/>
                 </MainButtonBar>
-            </form>
+            </FormTemplate>
 
         </>
     )
