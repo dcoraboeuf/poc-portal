@@ -29,12 +29,18 @@ export default function SubscriptionCreation() {
             const res = await fetch('/.netlify/functions/sync-get-products');
             if (res.ok) {
                 const data = await res.json();
+                data.forEach((product) => {
+                    product.selected = false;
+                })
+                if (data.length) {
+                    // Selecting the first product by default
+                    data[0].selected = true;
+                }
                 setProducts(data);
             } else {
                 throw new Error(`Failed to fetch the list of available products (code = ${res.status}).`);
             }
         }
-
         getProducts();
     }, []);
     return (
@@ -46,7 +52,7 @@ export default function SubscriptionCreation() {
                 {products.map(product =>
                     // TODO Create a card component
                     <Fragment key={product.id}>
-                        <ProductCard product={product} selected={ product.name === "Ontrack Starter" }/>
+                        <ProductCard product={product} selected={product.selected} />
                     </Fragment>
                 )}
             </div>
