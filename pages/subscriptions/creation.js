@@ -1,10 +1,9 @@
 import Header from "@components/Header";
 import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
-import {Fragment, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import SubmitButton from "@components/SubmitButton";
 import FormTemplate from "@components/FormTemplate";
-import ProductCard from "@components/sync/ProductCard";
 import ProductGroup from "@components/sync/ProductGroup";
 
 async function submitSubscriptionForm(event) {
@@ -30,13 +29,6 @@ export default function SubscriptionCreation() {
             const res = await fetch('/.netlify/functions/sync-get-products');
             if (res.ok) {
                 const data = await res.json();
-                data.forEach((product) => {
-                    product.selected = false;
-                })
-                if (data.length) {
-                    // Selecting the first product by default
-                    data[0].selected = true;
-                }
                 setProducts(data);
             } else {
                 throw new Error(`Failed to fetch the list of available products (code = ${res.status}).`);
@@ -52,7 +44,7 @@ export default function SubscriptionCreation() {
             <p>Choose the product you want to subscribe to:</p>
             <ProductGroup
                 products={products}
-                initialProductId={products.length ? products[0].id : undefined}
+                initialProductId={null}
             />
 
             <p>Choose the name for your instance:</p>

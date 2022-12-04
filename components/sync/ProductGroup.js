@@ -16,9 +16,6 @@ export default function ProductGroup({products, initialProductId}) {
                     />
                 </Fragment>
             )}
-            <p>
-                selectedProductId = {selectedProductId}
-            </p>
         </div>
     )
 }
