@@ -16,8 +16,28 @@ const syncGet = async (path, error) => {
     }
 };
 
+const intervalToNum = (i) => {
+    if (i === 'month') {
+        return 1;
+    } else if (i === 'year') {
+        return 2;
+    } else {
+        return 0;
+    }
+}
+
 exports.syncPortalGetProducts = async () => {
-    return syncGet('rest/portal/products', 'Cannot get products');
+    const products = await syncGet('rest/portal/products', 'Cannot get products');
+    // Sorts the prices of each product per interval (month --> year)
+    products.forEach(product => {
+         product.prices.sort((a, b) => {
+                const ia = intervalToNum(a.interval);
+                const ib = intervalToNum(b.interval);
+                return ia - ib;
+         });
+    });
+    // OK
+    return products;
 }
 
 exports.syncPortalInstanceCheck = async (name) => {
