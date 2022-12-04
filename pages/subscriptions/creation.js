@@ -9,15 +9,7 @@ async function submitSubscriptionForm(event) {
     event.preventDefault();
     // Instance name validation
     const instanceName = document.querySelector('#instanceName').value;
-    const res = await fetch('/.netlify/functions/sync-instance-check', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: instanceName
-        })
-    });
+    const res = await fetch(`/.netlify/functions/sync-instance-check?name=${instanceName}`);
     if (!res.ok) {
         throw new Error(`Cannot validate the instance name.`);
     }

@@ -2,7 +2,7 @@ const {syncPortalInstanceCheck} = require("./sync/syncClient");
 
 exports.handler = async (event) => {
     console.log({event});
-    const {name} = JSON.parse(event.body);
+    const {name} = event.queryStringParameters;
     return {
         statusCode: 200,
         body: JSON.stringify({
