@@ -42,11 +42,11 @@ export default function SubscriptionCreation() {
             <Header text="New subscription"/>
 
             <p>Choose the product you want to subscribe to:</p>
-            <div className="flex justify-center">
+            <div className="flex justify-left my-6">
                 {products.map(product =>
                     // TODO Create a card component
                     <Fragment key={product.id}>
-                        <ProductCard product={product}/>
+                        <ProductCard product={product} selected={ product.name === "Ontrack Starter" }/>
                     </Fragment>
                 )}
             </div>
