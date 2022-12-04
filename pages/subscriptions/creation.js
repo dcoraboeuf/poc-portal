@@ -43,6 +43,13 @@ export default function SubscriptionCreation() {
         }
         getProducts();
     }, []);
+
+    function onProductSelected(selectedProduct) {
+        products.forEach((product) => {
+            product.selected = product.id === selectedProduct.id;
+        });
+    }
+
     return (
         <>
             <Header text="New subscription"/>
@@ -52,7 +59,11 @@ export default function SubscriptionCreation() {
                 {products.map(product =>
                     // TODO Create a card component
                     <Fragment key={product.id}>
-                        <ProductCard product={product} selected={product.selected} />
+                        <ProductCard
+                            product={product}
+                            selected={product.selected}
+                            onSelection={onProductSelected(product)}
+                        />
                     </Fragment>
                 )}
             </div>
