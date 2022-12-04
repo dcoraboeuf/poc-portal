@@ -1,17 +1,10 @@
 import {useState} from "react";
 
-export default function ProductCard({product, initialSelection, onSelection}) {
-    const [selected, setSelected] = useState(initialSelection);
-    const onLocalSelection = () => {
-        setSelected(!selected);
-        if (onSelection) {
-            onSelection()
-        }
-    };
+export default function ProductCard({product, selected, onSelection}) {
     return (
         <>
             <button
-                onClick={onLocalSelection}
+                onClick={onSelection}
                 className={`
                     rounded-xl shadow-lg p-6 mr-6
                     hover:bg-sky-500

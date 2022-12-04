@@ -5,6 +5,7 @@ import {Fragment, useEffect, useState} from "react";
 import SubmitButton from "@components/SubmitButton";
 import FormTemplate from "@components/FormTemplate";
 import ProductCard from "@components/sync/ProductCard";
+import ProductGroup from "@components/sync/ProductGroup";
 
 async function submitSubscriptionForm(event) {
     // Stop the form from submitting and refreshing the page.
@@ -44,29 +45,15 @@ export default function SubscriptionCreation() {
         getProducts();
     }, []);
 
-    function onProductSelected(selectedProduct) {
-        products.forEach((product) => {
-            product.selected = product.id === selectedProduct.id;
-        });
-    }
-
     return (
         <>
             <Header text="New subscription"/>
 
             <p>Choose the product you want to subscribe to:</p>
-            <div className="flex justify-left my-6">
-                {products.map(product =>
-                    // TODO Create a card component
-                    <Fragment key={product.id}>
-                        <ProductCard
-                            product={product}
-                            selected={product.selected}
-                            onSelection={onProductSelected(product)}
-                        />
-                    </Fragment>
-                )}
-            </div>
+            <ProductGroup
+                products={products}
+                initialProductId={products.length ? products[0].id : undefined}
+            />
 
             <p>Choose the name for your instance:</p>
             <p>The URL of your Ontrack installation will be <code>https://`name`.ontrack.run</code></p>
