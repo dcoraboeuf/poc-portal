@@ -6,7 +6,7 @@ import SubmitButton from "@components/SubmitButton";
 import FormTemplate from "@components/FormTemplate";
 import ProductGroup from "@components/sync/ProductGroup";
 
-async function submitSubscriptionForm(selectedProductId) {
+async function submitSubscriptionForm(selectedPriceId) {
     // Gets the value of the instance name field
     const instanceName = document.querySelector('#instanceName').value;
     // Instance name validation
@@ -19,12 +19,12 @@ async function submitSubscriptionForm(selectedProductId) {
         throw new Error(`Instance name "${instanceName}" is not available.`);
     }
     // TODO Creates the subscription
-    console.log({selectedProductId: selectedProductId});
+    console.log({selectedPriceId: selectedPriceId});
 }
 
 export default function SubscriptionCreation() {
     const [products, setProducts] = useState([]);
-    const [selectedProductId, setSelectedProductId] = useState(null);
+    const [selectedPriceId, setSelectedPriceId] = useState(null);
     useEffect(() => {
         async function getProducts() {
             const res = await fetch('/.netlify/functions/sync-get-products');
@@ -38,15 +38,15 @@ export default function SubscriptionCreation() {
         getProducts();
     }, []);
 
-    function onProductSelected(productId) {
-        setSelectedProductId(productId);
+    function onPriceSelected(price) {
+        setSelectedPriceId(price.id);
     }
 
     async function onSubscriptionSubmit(event) {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault();
         // Submission
-        await submitSubscriptionForm(selectedProductId);
+        await submitSubscriptionForm(selectedPriceId);
     }
 
     return (
@@ -56,8 +56,8 @@ export default function SubscriptionCreation() {
             <p>Choose the product you want to subscribe to:</p>
             <ProductGroup
                 products={products}
-                initialProductId={null}
-                onSelectionChanged={onProductSelected}
+                initialPrice={null}
+                onPriceSelected={onPriceSelected}
             />
 
             <p>Choose the name for your instance:</p>
@@ -70,25 +70,25 @@ export default function SubscriptionCreation() {
                            required={true}
                            pattern="[a-z][a-z0-9]{1,32}"
                            className="
-                        form-control
-                        block
-                        w-100
-                        px-3
-                        py-1.5
-                        text-base
-                        font-normal
-                        bg-white bg-clip-padding
-                        border border-solid border-gray-300
-                        rounded
-                        transition
-                        ease-in-out
-                        m-0
-                        my-2
-                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                        "/>
+                                form-control
+                                block
+                                w-100
+                                px-3
+                                py-1.5
+                                text-base
+                                font-normal
+                                bg-white bg-clip-padding
+                                border border-solid border-gray-300
+                                rounded
+                                transition
+                                ease-in-out
+                                m-0
+                                my-2
+                                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                                "/>
                 </label>
                 <MainButtonBar>
-                    <SubmitButton enabled={selectedProductId !== null}/>
+                    <SubmitButton text="Order" enabled={selectedPriceId !== null}/>
                     <CancelButton/>
                 </MainButtonBar>
             </FormTemplate>

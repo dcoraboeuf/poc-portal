@@ -35,6 +35,10 @@ exports.syncPortalGetProducts = async () => {
                 const ib = intervalToNum(b.interval);
                 return ia - ib;
          });
+         // Injecting the product ID in each price
+        product.prices.forEach(price => {
+            price.product = product.id;
+        });
     });
     // OK
     return products;

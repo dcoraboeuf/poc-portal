@@ -1,4 +1,4 @@
-export default function SubmitButton({enabled}) {
+export default function SubmitButton({enabled, text}) {
     return (
         <>
             <button
@@ -10,7 +10,7 @@ export default function SubmitButton({enabled}) {
                     disabled:bg-gray-100 disabled:text-gray-300
                     disabled:hover:bg-gray-100 disabled:hover:text-gray-300
                 ">
-                Submit
+                { text ? text : "Submit" }
             </button>
         </>
     );
