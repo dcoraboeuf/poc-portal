@@ -4,6 +4,7 @@ import CancelButton from "@components/CancelButton";
 import {Fragment, useEffect, useState} from "react";
 import SubmitButton from "@components/SubmitButton";
 import FormTemplate from "@components/FormTemplate";
+import ProductCard from "@components/sync/ProductCard";
 
 async function submitSubscriptionForm(event) {
     // Stop the form from submitting and refreshing the page.
@@ -45,14 +46,7 @@ export default function SubscriptionCreation() {
                 {products.map(product =>
                     // TODO Create a card component
                     <Fragment key={product.id}>
-                        <div>
-                            <div className="font-bold">
-                                {product.name}
-                            </div>
-                            <div>
-                                {product.description}
-                            </div>
-                        </div>
+                        <ProductCard product={product}/>
                     </Fragment>
                 )}
             </div>
