@@ -6,9 +6,7 @@ import SubmitButton from "@components/SubmitButton";
 import FormTemplate from "@components/FormTemplate";
 import ProductGroup from "@components/sync/ProductGroup";
 
-async function submitSubscriptionForm(event) {
-    // Stop the form from submitting and refreshing the page.
-    event.preventDefault();
+async function submitSubscriptionForm(selectedProductId) {
     // Gets the value of the instance name field
     const instanceName = document.querySelector('#instanceName').value;
     // Instance name validation
@@ -20,6 +18,8 @@ async function submitSubscriptionForm(event) {
     if (!available) {
         throw new Error(`Instance name "${instanceName}" is not available.`);
     }
+    // TODO Creates the subscription
+    console.log({selectedProductId: selectedProductId});
 }
 
 export default function SubscriptionCreation() {
@@ -42,6 +42,13 @@ export default function SubscriptionCreation() {
         setSelectedProductId(productId);
     }
 
+    async function onSubscriptionSubmit(event) {
+        // Stop the form from submitting and refreshing the page.
+        event.preventDefault();
+        // Submission
+        await submitSubscriptionForm(selectedProductId);
+    }
+
     return (
         <>
             <Header text="New subscription"/>
@@ -56,7 +63,7 @@ export default function SubscriptionCreation() {
             <p>Choose the name for your instance:</p>
             <p>The URL of your Ontrack installation will be <code>https://`name`.ontrack.run</code></p>
 
-            <FormTemplate onSubmit={submitSubscriptionForm}>
+            <FormTemplate onSubmit={onSubscriptionSubmit}>
                 <label>
                     Instance name:
                     <input id="instanceName" type="text"
