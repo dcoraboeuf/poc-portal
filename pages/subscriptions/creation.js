@@ -8,16 +8,17 @@ import FormTemplate from "@components/FormTemplate";
 async function submitSubscriptionForm(event) {
     // Stop the form from submitting and refreshing the page.
     event.preventDefault();
-    // Instance name validation
+    // Gets the value of the instance name field
     const instanceName = document.querySelector('#instanceName').value;
+    // Instance name validation
     const res = await fetch(`/.netlify/functions/sync-instance-check?name=${instanceName}`);
     if (!res.ok) {
         throw new Error(`Cannot validate the instance name.`);
     }
     const {available} = await res.json();
-    // if (!available) {
+    if (!available) {
         throw new Error(`Instance name "${instanceName}" is not available.`);
-    // }
+    }
 }
 
 export default function SubscriptionCreation() {
