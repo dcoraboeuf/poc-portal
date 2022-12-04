@@ -1,9 +1,15 @@
-export default function SubmitButton() {
+export default function SubmitButton({enabled}) {
     return (
         <>
             <button
                 type="submit"
-                className="bg-white hover:bg-green-500 rounded-xl shadow-lg p-6 hover:text-white">
+                disabled={enabled !== null && !enabled}
+                className="
+                    bg-white rounded-xl shadow-lg p-6 text-black
+                    hover:bg-green-500 hover:text-white
+                    disabled:bg-gray-100 disabled:text-gray-300
+                    disabled:hover:bg-gray-100 disabled:hover:text-gray-300
+                ">
                 Submit
             </button>
         </>

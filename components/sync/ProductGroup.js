@@ -1,7 +1,7 @@
 import ProductCard from "@components/sync/ProductCard";
 import {Fragment, useState} from "react";
 
-export default function ProductGroup({products, initialProductId}) {
+export default function ProductGroup({products, initialProductId, onSelectionChanged}) {
     const [selectedProductId, setSelectedProductId] = useState(initialProductId);
     return (
         <div className="flex justify-left my-6">
@@ -12,6 +12,7 @@ export default function ProductGroup({products, initialProductId}) {
                         selected={ product.id === selectedProductId }
                         onSelection={() => {
                             setSelectedProductId(product.id);
+                            if (onSelectionChanged) onSelectionChanged(product.id);
                         }}
                     />
                 </Fragment>

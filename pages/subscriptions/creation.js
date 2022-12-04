@@ -24,6 +24,7 @@ async function submitSubscriptionForm(event) {
 
 export default function SubscriptionCreation() {
     const [products, setProducts] = useState([]);
+    const [selectedProductId, setSelectedProductId] = useState(null);
     useEffect(() => {
         async function getProducts() {
             const res = await fetch('/.netlify/functions/sync-get-products');
@@ -37,6 +38,10 @@ export default function SubscriptionCreation() {
         getProducts();
     }, []);
 
+    function onProductSelected(productId) {
+        setSelectedProductId(productId);
+    }
+
     return (
         <>
             <Header text="New subscription"/>
@@ -45,6 +50,7 @@ export default function SubscriptionCreation() {
             <ProductGroup
                 products={products}
                 initialProductId={null}
+                onSelectionChanged={onProductSelected}
             />
 
             <p>Choose the name for your instance:</p>
@@ -75,7 +81,7 @@ export default function SubscriptionCreation() {
                         "/>
                 </label>
                 <MainButtonBar>
-                    <SubmitButton/>
+                    <SubmitButton enabled={selectedProductId !== null}/>
                     <CancelButton/>
                 </MainButtonBar>
             </FormTemplate>
