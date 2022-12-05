@@ -19,7 +19,18 @@ async function submitSubscriptionForm(selectedPriceId) {
         throw new Error(`Instance name "${instanceName}" is not available.`);
     }
     // Starts the Stripe session and gets its URL
-    const checkoutRes = await fetch(`/.netlify/functions/stripe-checkout-session?name=${instanceName}&selectedPriceId=${selectedPriceId}`);
+    const checkoutParams = {
+        name: instanceName,
+        selectedPriceId: selectedPriceId,
+        cancel_url: `${window.location.origin}/subscription/creation`,
+        success_url: `${window.location.origin}?name=${instanceName}`, // TODO Success page
+        customer_id: 'cus_MugnmOKoo93epL', // TODO Gets the customer ID
+    };
+    const checkoutURL = new URL(`${window.location.origin}/.netlify/functions/stripe-checkout-session`);
+    for (let k in checkoutParams) {
+        checkoutURL.searchParams.append(k, checkoutParams[k]);
+    }
+    const checkoutRes = await fetch(checkoutURL);
     if (!checkoutRes.ok) {
         throw new Error(`Cannot start the Stripe checkout session.`);
     }
