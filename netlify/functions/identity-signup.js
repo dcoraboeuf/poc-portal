@@ -20,6 +20,9 @@ exports.handler = async (event) => {
             app_metadata: {
                 roles: ['customer'],
             },
+            user_metadata: {
+                stripe_customer_id: customer.id,
+            },
         }),
     };
 };
