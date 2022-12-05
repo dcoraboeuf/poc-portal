@@ -22,8 +22,8 @@ async function submitSubscriptionForm(selectedPriceId) {
     const checkoutParams = {
         name: instanceName,
         selectedPriceId: selectedPriceId,
-        cancel_url: `${window.location.origin}/subscription/creation`,
-        success_url: `${window.location.origin}?name=${instanceName}`, // TODO Success page
+        cancel_url: `${window.location.origin}/subscriptions/creation`,
+        success_url: `${window.location.origin}/subscriptions/success?name=${instanceName}`,
         customer_id: 'cus_MugnmOKoo93epL', // TODO Gets the customer ID
     };
     const checkoutURL = new URL(`${window.location.origin}/.netlify/functions/stripe-checkout-session`);
@@ -85,7 +85,7 @@ export default function SubscriptionCreation() {
                     Instance name:
                     <input id="instanceName" type="text"
                            required={true}
-                           pattern="[a-z][a-z0-9]{1,32}"
+                           pattern="[a-z][a-z0-9-]{1,32}"
                            className="
                                 form-control
                                 block
