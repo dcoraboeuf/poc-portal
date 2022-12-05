@@ -1,12 +1,20 @@
 import Header from "@components/Header";
 import MainButtonBar from "@components/MainButtonBar";
 import CancelButton from "@components/CancelButton";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import SubmitButton from "@components/SubmitButton";
 import FormTemplate from "@components/FormTemplate";
 import ProductGroup from "@components/sync/ProductGroup";
+import {AuthContext} from "../../contexts/authContext";
 
 async function submitSubscriptionForm(selectedPriceId) {
+    // Gets the customer ID
+    // TODO The useContext can be used only inside a component
+    const {user} = useContext(AuthContext);
+    const customerId = user.user_metadata.stripe_customer_id;
+    if (!customerId) {
+        throw new Error("Cannot proceed because to customer ID was found associated to your profile.");
+    }
     // Gets the value of the instance name field
     const instanceName = document.querySelector('#instanceName').value;
     // Instance name validation
@@ -24,7 +32,7 @@ async function submitSubscriptionForm(selectedPriceId) {
         selectedPriceId: selectedPriceId,
         cancel_url: `${window.location.origin}/subscriptions/creation`,
         success_url: `${window.location.origin}/subscriptions/success?name=${instanceName}`,
-        customer_id: 'cus_MugnmOKoo93epL', // TODO Gets the customer ID
+        customer_id: customerId,
     };
     const checkoutURL = new URL(`${window.location.origin}/.netlify/functions/stripe-checkout-session`);
     for (let k in checkoutParams) {
@@ -52,6 +60,7 @@ export default function SubscriptionCreation() {
                 throw new Error(`Failed to fetch the list of available products (code = ${res.status}).`);
             }
         }
+
         getProducts();
     }, []);
 
@@ -82,7 +91,6 @@ export default function SubscriptionCreation() {
 
             <FormTemplate onSubmit={onSubscriptionSubmit}>
                 <label>
-                    Instance name:
                     <input id="instanceName" type="text"
                            required={true}
                            pattern="[a-z][a-z0-9-]{1,32}"

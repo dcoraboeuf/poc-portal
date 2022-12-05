@@ -19,9 +19,6 @@ exports.handler = async (event) => {
         body: JSON.stringify({
             app_metadata: {
                 roles: ['customer'],
-            },
-            user_metadata: {
-                full_name: user.user_metadata.full_name,
                 stripe_customer_id: customer.id,
             },
         }),
