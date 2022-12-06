@@ -1,7 +1,7 @@
 export default function MainButtonBar({children}) {
     return (
         <>
-            <div>
+            <div className="btn-toolbar" aria-label="All main buttons">
                 {children}
             </div>
         </>

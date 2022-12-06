@@ -12,11 +12,17 @@ export default function ConnectionBar() {
     return (
         <>
             <MainButtonBar>
-                {!user && <LoginButton/>}
-                {!user && <SignupButton/>}
-                {user && <CustomerName/>}
-                {user && <SubscriptionCreationButton/>}
-                {user && <LogoutButton/>}
+                <div className="btn-group me-2" role="group" aria-label="Connection commands">
+                    {!user && <LoginButton/>}
+                    {!user && <SignupButton/>}
+                    {user && <CustomerName/>}
+                </div>
+                <div className="btn-group me-2" role="group" aria-label="Subscription commands">
+                    {user && <SubscriptionCreationButton/>}
+                </div>
+                <div className="btn-group me-2" role="group" aria-label="Logout commands">
+                    {user && <LogoutButton/>}
+                </div>
             </MainButtonBar>
         </>
     )
