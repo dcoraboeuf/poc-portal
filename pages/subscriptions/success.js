@@ -16,7 +16,7 @@ export default function SubscriptionSuccess() {
 
             <p>
                 Your Ontrack instance should be available in the next hour
-                at <a className="underline decoration-sky-500" href={url}>{url}</a>.
+                at <a href={url}>{url}</a>.
             </p>
 
             <p>

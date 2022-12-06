@@ -4,12 +4,12 @@ import Footer from "@components/Footer";
 export default function MainLayout({children}) {
     return (
         <>
-            <div className="container">
+            <div>
                 <Head>
                     <title>Ontrack Customer Portal</title>
                 </Head>
 
-                <main className="p-6">
+                <main>
                     {children}
                 </main>
 

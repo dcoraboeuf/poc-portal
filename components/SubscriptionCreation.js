@@ -90,23 +90,7 @@ export default function SubscriptionCreation() {
                     <input id="instanceName" type="text"
                            required={true}
                            pattern="[a-z][a-z0-9-]{1,32}"
-                           className="
-                                form-control
-                                block
-                                w-100
-                                px-3
-                                py-1.5
-                                text-base
-                                font-normal
-                                bg-white bg-clip-padding
-                                border border-solid border-gray-300
-                                rounded
-                                transition
-                                ease-in-out
-                                m-0
-                                my-2
-                                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                                "/>
+                           />
                 </label>
                 <MainButtonBar>
                     <SubmitButton text="Order" enabled={selectedPriceId !== null}/>
