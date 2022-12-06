@@ -1,5 +1,6 @@
 import {AuthContext} from "../contexts/authContext";
-import {useContext, useEffect, useState} from "react";
+import {Fragment, useContext, useEffect, useState} from "react";
+import Subscription from "@components/Subscription";
 
 export default function SubscriptionList() {
     const {user} = useContext(AuthContext);
@@ -17,15 +18,20 @@ export default function SubscriptionList() {
             }
         }
 
-        getSubscriptions().then(r => {/* */});
+        getSubscriptions().then(r => {/* */
+        });
     }, [user]);
     if (user) {
         return (
             <>
                 <h3>List of subscriptions</h3>
-                <p>
-                    {JSON.stringify(subscriptions)}
-                </p>
+                {
+                    subscriptions.map(subscription => (
+                        <Fragment key={subscription.id}>
+                            <Subscription subscription={subscription}/>
+                        </Fragment>
+                    ))
+                }
             </>
         )
     } else {
