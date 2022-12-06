@@ -8,6 +8,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "bootstrap": "^5.2.3",
     "eslint-config-next": "^13.0.6",
     "netlify-identity-widget": "^1.9.2",
     "next": "^13.0.6",
