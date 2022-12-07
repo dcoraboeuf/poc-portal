@@ -1,6 +1,8 @@
 import {AuthContext} from "../contexts/authContext";
 import {Fragment, useContext, useEffect, useState} from "react";
 import Subscription from "@components/Subscription";
+import PortalCard from "@components/common/PortalCard";
+import Link from "next/link";
 
 export default function SubscriptionList() {
     const {user} = useContext(AuthContext);
@@ -30,32 +32,42 @@ export default function SubscriptionList() {
                         List of your existing subscriptions.
                     </p>
                 </div>
-                {/* No subscription yet */}
-                {
-                    !subscriptions.length && <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                        <div className="col">
-                            <p className="fs-5 text-muted">
-                                No subscription yet. Click on "New subscription" below to get started.
-                            </p>
-                        </div>
+                <div className="container">
+                    <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                        {/* One card per subscription */}
+                        {
+                            subscriptions.map(subscription => (
+                                <Fragment key={subscription.id}>
+                                    <div className="col">
+                                        <Subscription subscription={subscription}/>
+                                    </div>
+                                </Fragment>
+                            ))
+                        }
+                        {/* New subscription */}
+                        {
+                            <div className="col">
+                                <PortalCard
+                                    header={
+                                        <span>New subscription</span>
+                                    }
+                                    title={""}
+                                    body={<>
+                                        <p className="text-muted fw-light">Create a new Ontrack instance.</p>
+                                        <Link href="/subscriptions/creation">
+                                            <button
+                                                className="btn btn-primary"
+                                                type="button"
+                                            >
+                                                New subscription
+                                            </button>
+                                        </Link>
+                                    </>}
+                                />
+                            </div>
+                        }
                     </div>
-                }
-                {/* One card per subscription */}
-                {
-                    subscriptions.length && <div className="container">
-                        <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                            {
-                                subscriptions.map(subscription => (
-                                    <Fragment key={subscription.id}>
-                                        <div className="col">
-                                            <Subscription subscription={subscription}/>
-                                        </div>
-                                    </Fragment>
-                                ))
-                            }
-                        </div>
-                    </div>
-                }
+                </div>
             </>
         )
     } else {
