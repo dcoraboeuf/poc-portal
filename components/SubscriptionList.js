@@ -24,13 +24,37 @@ export default function SubscriptionList() {
     if (user) {
         return (
             <>
-                <h3>List of subscriptions</h3>
+                <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
+                    <h1 className="display-4 fw-normal">Subscriptions</h1>
+                    <p className="fs-5 text-muted">
+                        List of your existing subscriptions.
+                    </p>
+                </div>
+                {/* No subscription yet */}
                 {
-                    subscriptions.map(subscription => (
-                        <Fragment key={subscription.id}>
-                            <Subscription subscription={subscription}/>
-                        </Fragment>
-                    ))
+                    !subscriptions.length && <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                        <div className="col">
+                            <p className="fs-5 text-muted">
+                                No subscription yet. Click on "New subscription" below to get started.
+                            </p>
+                        </div>
+                    </div>
+                }
+                {/* One card per subscription */}
+                {
+                    subscriptions.length && <div className="container">
+                        <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                            {
+                                subscriptions.map(subscription => (
+                                    <Fragment key={subscription.id}>
+                                        <div className="col">
+                                            <Subscription subscription={subscription}/>
+                                        </div>
+                                    </Fragment>
+                                ))
+                            }
+                        </div>
+                    </div>
                 }
             </>
         )
