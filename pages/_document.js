@@ -6,6 +6,7 @@ export default function Document() {
             <Head>
                 <link rel="icon" href="/favicon.ico"/>
                 <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
                       rel="stylesheet"
