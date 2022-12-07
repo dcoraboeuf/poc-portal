@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Footer from "@components/Footer";
+import ConnectionBar from "@components/ConnectionBar";
 
 export default function MainLayout({children}) {
     return (
@@ -16,11 +17,7 @@ export default function MainLayout({children}) {
                             <span className="ps-4 text-light">Ontrack Customer Portal</span>
                         </a>
                         <form className="d-flex" role="connection">
-                            <span className="navbar-text text-light text-muted pe-4">
-                              Customer name
-                            </span>
-                            <button type="button" className="btn btn-outline-light me-2">Login</button>
-                            <button type="button" className="btn btn-warning">Sign-up</button>
+                            <ConnectionBar/>
                         </form>
                     </div>
                 </nav>

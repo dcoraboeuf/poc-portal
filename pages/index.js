@@ -5,9 +5,9 @@ import SubscriptionList from "@components/SubscriptionList";
 export default function Home() {
     return (
         <>
-            <Header text="Welcome to the Ontrack Customer Portal!"/>
-            <SubscriptionList/>
-            <ConnectionBar/>
+            {/*<Header text="Welcome to the Ontrack Customer Portal!"/>*/}
+            {/*<SubscriptionList/>*/}
+            {/*<ConnectionBar/>*/}
         </>
     )
 }

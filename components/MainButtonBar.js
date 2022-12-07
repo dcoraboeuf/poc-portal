@@ -1,3 +1,4 @@
+// @deprecated
 export default function MainButtonBar({children}) {
     return (
         <>

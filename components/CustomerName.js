@@ -5,9 +5,9 @@ export default function CustomerName() {
     const {user} = useContext(AuthContext);
     return (
         <>
-            <button>
-                {user.user_metadata.full_name}&nbsp;({user.email})
-            </button>
+            <span className="navbar-text text-light text-muted pe-4">
+                  {user.user_metadata.full_name}
+            </span>
 
         </>
     )
