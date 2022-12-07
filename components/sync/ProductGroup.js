@@ -4,19 +4,23 @@ import {Fragment, useState} from "react";
 export default function ProductGroup({products, initialPrice, onPriceSelected}) {
     const [selectedPrice, setSelectedPrice] = useState(initialPrice);
     return (
-        <div>
-            {products.map(product =>
-                <Fragment key={product.id}>
-                    <ProductCard
-                        product={product}
-                        selectedPrice={selectedPrice}
-                        onPriceSelected={(price) => {
-                            setSelectedPrice(price)
-                            if (onPriceSelected) onPriceSelected(price)
-                        }}
-                    />
-                </Fragment>
-            )}
+        <div className="container">
+            <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                {products.map(product =>
+                    <Fragment key={product.id}>
+                        <div className="col">
+                            <ProductCard
+                                product={product}
+                                selectedPrice={selectedPrice}
+                                onPriceSelected={(price) => {
+                                    setSelectedPrice(price)
+                                    if (onPriceSelected) onPriceSelected(price)
+                                }}
+                            />
+                        </div>
+                    </Fragment>
+                )}
+            </div>
         </div>
     )
 }
