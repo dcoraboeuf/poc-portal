@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import ProductGroup from "@components/sync/ProductGroup";
-import FormTemplate from "@components/FormTemplate";
+import FormTemplate from "@components/common/FormTemplate";
 import {AuthContext} from "../contexts/authContext";
 
 export default function SubscriptionCreation() {
