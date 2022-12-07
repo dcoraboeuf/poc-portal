@@ -11,6 +11,7 @@ export default function Subscription({subscription}) {
                 {subscription.product.description}
             </p>
             <p className="text-muted fw-light">{subscription.price.representation}</p>
+            <p className="text-muted fw-light">Valid until <span className="fw-bold">{ new Date(subscription.currentPeriodEnd * 1000).toLocaleString() }</span></p>
             {/*<button type="button" className="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>*/}
         </div>
     </div>
