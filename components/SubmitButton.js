@@ -1,3 +1,4 @@
+// @deprecated
 export default function SubmitButton({enabled, text}) {
     return (
         <>

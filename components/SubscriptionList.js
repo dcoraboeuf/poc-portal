@@ -26,7 +26,7 @@ export default function SubscriptionList() {
     if (user) {
         return (
             <>
-                <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
+                <div className="p-3 pb-md-4 mx-auto text-center">
                     <h1 className="display-4 fw-normal">Subscriptions</h1>
                     <p className="fs-5 text-muted">
                         List of your existing subscriptions.

@@ -75,28 +75,53 @@ export default function SubscriptionCreation() {
     return (
         <>
 
-            <p>Choose the product you want to subscribe to:</p>
-            <ProductGroup
-                products={products}
-                initialPrice={null}
-                onPriceSelected={onPriceSelected}
-            />
+            <div className="container">
 
-            <p>Choose the name for your instance:</p>
-            <p>The URL of your Ontrack installation will be <code>https://`name`.ontrack.run</code></p>
+                <div className="p-3 pb-md-4 mx-auto text-center">
+                    <h1 className="display-4 fw-normal">New subscription</h1>
+                </div>
 
-            <FormTemplate onSubmit={onSubscriptionSubmit}>
-                <label>
-                    <input id="instanceName" type="text"
-                           required={true}
-                           pattern="[a-z][a-z0-9-]{1,32}"
-                           />
-                </label>
-                <MainButtonBar>
-                    <SubmitButton text="Order" enabled={selectedPriceId !== null}/>
-                    <CancelButton/>
-                </MainButtonBar>
-            </FormTemplate>
+                <p className="fs-5 text-muted my-4">
+                    (1) Choose the product
+                </p>
+
+                <ProductGroup
+                    products={products}
+                    initialPrice={null}
+                    onPriceSelected={onPriceSelected}
+                />
+
+                <p className="fs-5 text-muted my-4">
+                    (2) Choose the name for your instance
+                </p>
+
+                <FormTemplate onSubmit={onSubscriptionSubmit}>
+                    <div className="mb-3">
+                        <input type="text"
+                               className="form-control w-25"
+                               id="instanceName"
+                               required={true}
+                               pattern="[a-z][a-z0-9-]{1,32}"
+                        />
+                        <div className="form-text">
+                            The URL of your Ontrack installation will be
+                            &nbsp;
+                            <code>https://`name`.ontrack.run</code>
+                        </div>
+                    </div>
+                    <div className="">
+                        <button type="submit"
+                                disabled={!selectedPriceId}
+                                className="btn btn-primary">
+                            Order
+                        </button>
+                        <a href="/" className="btn btn-link">
+                            Cancel
+                        </a>
+                    </div>
+                </FormTemplate>
+
+            </div>
 
         </>
     );
