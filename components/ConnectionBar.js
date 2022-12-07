@@ -1,4 +1,3 @@
-import MainButtonBar from "@components/MainButtonBar";
 import LoginButton from "@components/LoginButton";
 import SignupButton from "@components/SignupButton";
 import {useContext} from "react";

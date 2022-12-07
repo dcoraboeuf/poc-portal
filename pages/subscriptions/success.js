@@ -1,6 +1,4 @@
-import Header from "@components/Header";
 import {useRouter} from "next/router";
-import MainButton from "@components/MainButton";
 
 export default function SubscriptionSuccess() {
     const router = useRouter();
