@@ -51,19 +51,17 @@ export default function SubscriptionList() {
                                     header={
                                         <span>New subscription</span>
                                     }
-                                    title={""}
-                                    body={<>
-                                        <p className="text-muted fw-light">Create a new Ontrack instance.</p>
-                                        <Link href="/subscriptions/creation">
-                                            <button
-                                                className="btn btn-primary"
-                                                type="button"
-                                            >
-                                                New subscription
-                                            </button>
-                                        </Link>
-                                    </>}
-                                />
+                                    title={""}>
+                                    <p className="text-muted fw-light">Create a new Ontrack instance.</p>
+                                    <Link href="/subscriptions/creation">
+                                        <button
+                                            className="btn btn-primary"
+                                            type="button"
+                                        >
+                                            New subscription
+                                        </button>
+                                    </Link>
+                                </PortalCard>
                             </div>
                         }
                     </div>

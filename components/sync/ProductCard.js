@@ -1,4 +1,5 @@
 import {Fragment} from "react";
+import PortalCard from "@components/common/PortalCard";
 
 export default function ProductCard({product, selectedPrice, onPriceSelected}) {
     return (

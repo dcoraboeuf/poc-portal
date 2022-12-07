@@ -1,4 +1,4 @@
-export default function PortalCard({header, title, body}) {
+export default function PortalCard({header, title, children}) {
     return (
         <div className="card mb-4 rounded-3 shadow-sm h-100">
             <div className="card-header py-3">
@@ -8,7 +8,7 @@ export default function PortalCard({header, title, body}) {
             </div>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
-                {body}
+                {children}
             </div>
         </div>
     )
