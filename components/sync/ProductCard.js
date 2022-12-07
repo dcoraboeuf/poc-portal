@@ -5,6 +5,7 @@ export default function ProductCard({product, selectedPrice, onPriceSelected}) {
     return (
         <PortalCard
             header={product.name}
+            headerClass={selectedPrice && selectedPrice.product === product.id ? 'bg-primary bg-opacity-75' : 'bg-light'}
             title={""}>
             <div>
                 <div className="text-muted">
@@ -19,7 +20,7 @@ export default function ProductCard({product, selectedPrice, onPriceSelected}) {
                                     className={`
                                     btn
                                     p-3
-                                    ${selectedPrice && selectedPrice.id === price.id ? 'btn-success' : 'btn-light'}
+                                    ${selectedPrice && selectedPrice.id === price.id ? 'btn-primary' : 'btn-light'}
                                 `}>
                                     {price.representation}
                                 </button>
