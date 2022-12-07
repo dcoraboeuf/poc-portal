@@ -2,7 +2,7 @@ import PortalCard from "@components/common/PortalCard";
 
 export default function Subscription({subscription}) {
     return <PortalCard
-        header={<a href="https://{subscription.provisioningName}.ontrack.run">{subscription.provisioningName}</a>}
+        header={<a href={`https://${subscription.provisioningName}.ontrack.run`} target="_blank">{subscription.provisioningName}</a>}
         title={subscription.product.name}
         body={
             <>
