@@ -1,6 +1,8 @@
 import PortalCard from "@components/common/PortalCard";
 import {useContext} from "react";
 import {AuthContext} from "../contexts/authContext";
+import {useRouter} from "next/router";
+import Link from "next/link";
 
 export default function Subscription({subscription}) {
 
@@ -36,11 +38,13 @@ export default function Subscription({subscription}) {
                    className="btn btn-link text-decoration-none ms-2 p-0">
                     <i className="bi-pencil-square fs-5"/>
                 </button>
-                <button
-                   title="Upgrade subscription"
-                   className="btn btn-link text-danger text-decoration-none ms-1 p-O">
-                    <i className="bi-arrow-up-circle fs-5"/>
-                </button>
+                <Link href={`/subscriptions/upgrade/${subscription.id}`}>
+                    <button
+                        title="Upgrade subscription"
+                        className="btn btn-link text-danger text-decoration-none ms-1 p-O">
+                        <i className="bi-arrow-up-circle fs-5"/>
+                    </button>
+                </Link>
             </>
         }
         title={subscription.product.name}>
