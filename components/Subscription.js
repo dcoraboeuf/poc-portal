@@ -45,5 +45,10 @@ export default function Subscription({subscription}) {
         <p className="text-muted fw-light">{subscription.price.representation}</p>
         <p className="text-muted fw-light">Valid until <span
             className="fw-bold">{new Date(subscription.currentPeriodEnd * 1000).toLocaleString()}</span></p>
+        {
+            subscription.cancelAtPeriodEnd ? <div className="alert alert-danger">
+                This subscription will stop automatically at the end of the validity period.
+            </div> : <></>
+        }
     </PortalCard>
 }
