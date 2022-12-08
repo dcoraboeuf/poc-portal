@@ -5,7 +5,7 @@ export default function ProductGroup({products, initialPrice, onPriceSelected}) 
     const [selectedPrice, setSelectedPrice] = useState(initialPrice);
     return (
         <div className="container">
-            <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div className="row row-cols-1 row-cols-md-2 mb-3 text-center g-3">
                 {products.map(product =>
                     <Fragment key={product.id}>
                         <div className="col">
