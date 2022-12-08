@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <div className="container fixed-bottom mb-2">
+        <div className="container mt-2">
             <footer>
                 <img src="/ontrack-128.png" alt="Ontrack Logo" className="ot-icon"/>
                 <a href="https://nemerosa.github.io/ontrack/"
