@@ -48,6 +48,10 @@ exports.syncPortalGetSubscriptions = async (customerId) => {
     return syncGet(`rest/portal/customer/${customerId}/subscriptions`, 'Cannot get subscriptions');
 }
 
+exports.syncPortalGetSubscription = async (customerId, subscriptionId) => {
+    return syncGet(`rest/portal/customer/${customerId}/subscriptions/${subscriptionId}`, 'Cannot get subscription');
+}
+
 exports.syncPortalInstanceCheck = async (name) => {
     return syncGet(`rest/portal/instance/${name}/check`, 'Cannot check the instance name');
 }
