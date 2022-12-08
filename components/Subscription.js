@@ -1,16 +1,41 @@
 import PortalCard from "@components/common/PortalCard";
+import {useContext} from "react";
+import {AuthContext} from "../contexts/authContext";
 
 export default function Subscription({subscription}) {
+
+    const {user} = useContext(AuthContext);
+
+    const billingPortal = async () => {
+        const customerId = user.user_metadata.stripe_customer_id;
+        const bpsParams = {
+            customer_id: customerId,
+            return_url: `${window.location.origin}`,
+        };
+        const bpsURL = new URL(`${window.location.origin}/.netlify/functions/stripe-billing-portal-session`);
+        for (let k in bpsParams) {
+            bpsURL.searchParams.append(k, bpsParams[k]);
+        }
+        const bpsRes = await fetch(bpsURL);
+        if (!bpsRes.ok) {
+            throw new Error(`Cannot start the Stripe billing portal session.`);
+        }
+        const bpsInfo = await bpsRes.json();
+        // Redirects to the Stripe billing portal URL
+        window.location = bpsInfo.billingPortal.url;
+    };
+
     return <PortalCard
         header={
             <>
                 <a href={`https://${subscription.provisioningName}.ontrack.run`}
                    target="_blank">{subscription.provisioningName}</a>
-                <a href="https://dashboard.stripe.com/test"
+                <button
+                    onClick={billingPortal}
                    title="Manage subscription"
-                   className="text-decoration-none ms-2">
+                   className="btn btn-link text-decoration-none ms-2">
                     <i className="bi-pencil-square fs-5"/>
-                </a>
+                </button>
             </>
         }
         title={subscription.product.name}>
