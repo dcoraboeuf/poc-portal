@@ -1,0 +1,31 @@
+== Stripe setup
+
+=== Creation of the Customer Portal Configuration
+
+Reference: https://stripe.com/docs/customer-management/integrate-customer-portal
+
+[source,bash]
+----
+curl https://api.stripe.com/v1/billing_portal/configurations \
+  -u 'rk_test_51LaJK6GGvVfy3RzaaqZaproSE9JNaLSK4tQbC9y9cAkDrHve12jPED6FYs5LPwx5RUiOveoGXq6agtOl9ghvziw200eRPPMw6M:' \
+  -d "business_profile[headline]"="Nemerosa Ontrack uses Stripe for secure billing." \
+  -d "features[customer_update][enabled]"=true \
+  -d "features[customer_update][allowed_updates][]"=address \
+  -d "features[customer_update][allowed_updates][]"=phone \
+  -d "features[customer_update][allowed_updates][]"=tax_id \
+  -d "features[invoice_history][enabled]"=true \
+  -d "features[payment_method_update][enabled]"=true \
+  -d "features[subscription_cancel][enabled]"=true \
+  -d "features[subscription_cancel][cancellation_reason][enabled]"=true \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=too_expensive \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=missing_features \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=switched_service \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=unused \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=customer_service \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=too_complex \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=low_quality \
+  -d "features[subscription_cancel][cancellation_reason][options][]"=other \
+  -d "features[subscription_cancel][mode]"=at_period_end
+----
+
+Note the create `bpc_...` ID. Set it as a `STRIPE_BILLING_PORTAL_CONFIG_ID` environment variable in Netlify.
