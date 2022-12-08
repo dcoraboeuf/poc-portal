@@ -24,6 +24,7 @@ exports.handler = async (event) => {
             name: 'auto',
         },
         subscription_data: {
+            description: `https://${name}.ontrack.run`,
             metadata: {
                 'provisioning.name': name,
             }
