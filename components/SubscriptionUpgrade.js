@@ -28,7 +28,9 @@ export default function SubscriptionUpgrade({subscriptionId}) {
             <p className="fs-5 text-muted my-4">
                 (1) Subscription to upgrade
             </p>
-            <Subscription subscription={subscription}/>
+            {
+                subscription ? <Subscription subscription={subscription} showOptions={false}/> : undefined
+            }
             <p className="fs-5 text-muted my-4">
                 (2) Plan to upgrade to
             </p>

@@ -4,7 +4,7 @@ import {AuthContext} from "../contexts/authContext";
 import {useRouter} from "next/router";
 import Link from "next/link";
 
-export default function Subscription({subscription}) {
+export default function Subscription({subscription, showOptions}) {
 
     const {user} = useContext(AuthContext);
 
@@ -32,19 +32,6 @@ export default function Subscription({subscription}) {
             <>
                 <a href={`https://${subscription.provisioningName}.ontrack.run`}
                    target="_blank">{subscription.provisioningName}</a>
-                <button
-                    onClick={billingPortal}
-                   title="Manage subscription"
-                   className="btn btn-link text-decoration-none ms-2 p-0">
-                    <i className="bi-pencil-square fs-5"/>
-                </button>
-                <Link href={`/subscriptions/upgrade/${subscription.id}`}>
-                    <button
-                        title="Upgrade subscription"
-                        className="btn btn-link text-danger text-decoration-none ms-1 p-O">
-                        <i className="bi-arrow-up-circle fs-5"/>
-                    </button>
-                </Link>
             </>
         }
         title={subscription.product.name}>
@@ -58,6 +45,34 @@ export default function Subscription({subscription}) {
             subscription.cancelAtPeriodEnd ? <div className="alert alert-danger">
                 This subscription will stop automatically at the end of the validity period.
             </div> : <></>
+        }
+        {
+            !showOptions || showOptions === true ?
+                <div className="container text-center mt-4">
+                    <div className="row">
+                        <div className="col-6">
+                            <button
+                                onClick={billingPortal}
+                                className="btn btn-outline-secondary">
+                                <i className="bi-pencil-square"/>
+                                &nbsp;
+                                Manage
+                            </button>
+                        </div>
+                        <div className="col-6">
+                            <Link href={`/subscriptions/upgrade/${subscription.id}`}>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-success">
+                                    <i className="bi-arrow-up-circle"/>
+                                    &nbsp;
+                                    Upgrade
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                : undefined
         }
     </PortalCard>
 }
