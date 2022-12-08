@@ -33,8 +33,13 @@ export default function Subscription({subscription}) {
                 <button
                     onClick={billingPortal}
                    title="Manage subscription"
-                   className="btn btn-link text-decoration-none ms-2">
+                   className="btn btn-link text-decoration-none ms-2 p-0">
                     <i className="bi-pencil-square fs-5"/>
+                </button>
+                <button
+                   title="Upgrade subscription"
+                   className="btn btn-link text-danger text-decoration-none ms-1 p-O">
+                    <i className="bi-arrow-up-circle fs-5"/>
                 </button>
             </>
         }
