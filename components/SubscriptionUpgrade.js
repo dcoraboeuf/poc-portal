@@ -32,7 +32,7 @@ export default function SubscriptionUpgrade({subscriptionId}) {
                 subscription ? <Subscription subscription={subscription} showOptions={false}/> : undefined
             }
             <p className="fs-5 text-muted my-4">
-                (2) Plan to upgrade to
+                (2) Choose the plan to upgrade to
             </p>
         </div>
     )

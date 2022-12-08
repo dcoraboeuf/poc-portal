@@ -47,7 +47,7 @@ export default function Subscription({subscription, showOptions}) {
             </div> : <></>
         }
         {
-            !showOptions || showOptions === true ?
+            showOptions === undefined || showOptions === true ?
                 <div className="container text-center mt-4">
                     <div className="row">
                         <div className="col-6">
