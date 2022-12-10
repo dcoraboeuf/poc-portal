@@ -4,23 +4,35 @@ import Subscription from "@components/Subscription";
 
 export default function SubscriptionUpgrade({subscriptionId}) {
     const {user} = useContext(AuthContext);
-    // Loading the subscription from the Portal API
+    // Loading the subscription and the eligible products from the Portal API
     const [subscription, setSubscription] = useState();
+    const [products, setProducts] = useState();
     useEffect(() => {
         async function getSubscription() {
             if (user && subscriptionId) {
                 const res = await fetch(`/.netlify/functions/sync-get-subscription?customerId=${user.user_metadata.stripe_customer_id}&subscriptionId=${subscriptionId}`);
                 if (res.ok) {
-                    const data = await res.json();
-                    setSubscription(data);
+                    const loadedSubscription = await res.json();
+                    setSubscription(loadedSubscription);
+                    // Loading the products
+                    const pres = await fetch('/.netlify/functions/sync-get-products');
+                    if (pres.ok) {
+                        const allProducts = await pres.json();
+                        // Gets only products whose license level is > subscription product level
+                        const eligibleProducts = allProducts.filter(product => {
+                            return product.licenseLevel > loadedSubscription.product.licenseLevel;
+                        });
+                        setProducts(eligibleProducts);
+                    } else {
+                        throw new Error(`Failed to fetch the list of available products (code = ${pres.status}).`);
+                    }
                 } else {
                     throw new Error(`Failed to fetch a subscription (code = ${res.status}).`);
                 }
             }
         }
-
-        getSubscription().then(r => {/* */
-        });
+        // noinspection JSIgnoredPromiseFromCall
+        getSubscription();
     }, [user]);
 
     return (
