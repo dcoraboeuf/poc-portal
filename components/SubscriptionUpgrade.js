@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../contexts/authContext";
 import Subscription from "@components/Subscription";
 import ProductGroup from "@components/sync/ProductGroup";
+import Link from "next/link";
 
 export default function SubscriptionUpgrade({subscriptionId}) {
     const {user} = useContext(AuthContext);
@@ -36,6 +37,12 @@ export default function SubscriptionUpgrade({subscriptionId}) {
         getSubscription();
     }, [user]);
 
+    const [selectedPrice, setSelectedPrice] = useState();
+
+    const onPriceSelected = (price) => {
+        setSelectedPrice(price);
+    };
+
     return (
         <div className="container">
             <p className="fs-5 text-muted my-4">
@@ -48,11 +55,26 @@ export default function SubscriptionUpgrade({subscriptionId}) {
                 (2) Choose the plan to upgrade to
             </p>
 
-            <ProductGroup
-                products={products}
-                initialPrice={null}
-                onPriceSelected={() => {}}
-            />
+            {
+                products && <ProductGroup
+                    products={products}
+                    initialPrice={null}
+                    onPriceSelected={onPriceSelected}
+                />
+            }
+
+            <div>
+                <button
+                    disabled={!selectedPrice}
+                    className="btn btn-primary">
+                    Upgrade plan
+                </button>
+                <Link href="/">
+                    <button className="btn btn-link">
+                        Cancel
+                    </button>
+                </Link>
+            </div>
         </div>
     )
 }
