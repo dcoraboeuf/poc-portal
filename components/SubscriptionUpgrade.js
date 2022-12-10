@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../contexts/authContext";
 import Subscription from "@components/Subscription";
+import ProductGroup from "@components/sync/ProductGroup";
 
 export default function SubscriptionUpgrade({subscriptionId}) {
     const {user} = useContext(AuthContext);
@@ -46,6 +47,12 @@ export default function SubscriptionUpgrade({subscriptionId}) {
             <p className="fs-5 text-muted my-4">
                 (2) Choose the plan to upgrade to
             </p>
+
+            <ProductGroup
+                products={products}
+                initialPrice={null}
+                onPriceSelected={() => {}}
+            />
         </div>
     )
 }
