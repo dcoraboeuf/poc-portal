@@ -3,7 +3,7 @@ import {AuthContext} from "../contexts/authContext";
 import Subscription from "@components/Subscription";
 import ProductGroup from "@components/sync/ProductGroup";
 import Link from "next/link";
-import {useRouter} from "next/router";
+import {router} from "next/client";
 
 export default function SubscriptionUpgrade({subscriptionId}) {
     const {user} = useContext(AuthContext);
@@ -48,7 +48,7 @@ export default function SubscriptionUpgrade({subscriptionId}) {
         if (selectedPrice && subscription) {
             const res = await fetch(`/.netlify/functions/stripe-upgrade-subscription?subscriptionId=${subscriptionId}&priceId=${selectedPrice.id}`);
             if (res.ok) {
-                await useRouter().push('/');
+                await router.push("/")
             } else {
                 throw new Error(`Cannot upgrade the subscription.`);
             }
