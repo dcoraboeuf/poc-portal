@@ -3,13 +3,13 @@ import {AuthContext} from "../contexts/authContext";
 import Subscription from "@components/Subscription";
 import ProductGroup from "@components/sync/ProductGroup";
 import Link from "next/link";
-import {router} from "next/client";
 
 export default function SubscriptionUpgrade({subscriptionId}) {
     const {user} = useContext(AuthContext);
     // Loading the subscription and the eligible products from the Portal API
-    const [subscription, setSubscription] = useState();
-    const [products, setProducts] = useState();
+    const [subscription, setSubscription] = useState(null);
+    const [products, setProducts] = useState([]);
+    const [upgradedCount, setUpgradedCount] = useState(0);
     useEffect(() => {
         async function getSubscription() {
             if (user && subscriptionId) {
@@ -34,11 +34,13 @@ export default function SubscriptionUpgrade({subscriptionId}) {
                 }
             }
         }
+
         // noinspection JSIgnoredPromiseFromCall
         getSubscription();
-    }, [user]);
+    }, [user, upgradedCount]);
 
     const [selectedPrice, setSelectedPrice] = useState();
+    const [upgradeMessage, setUpgradeMessage] = useState("");
 
     const onPriceSelected = (price) => {
         setSelectedPrice(price);
@@ -48,7 +50,8 @@ export default function SubscriptionUpgrade({subscriptionId}) {
         if (selectedPrice && subscription) {
             const res = await fetch(`/.netlify/functions/stripe-upgrade-subscription?subscriptionId=${subscriptionId}&priceId=${selectedPrice.id}`);
             if (res.ok) {
-                await router.push("/")
+                setUpgradedCount(upgradedCount + 1)
+                setUpgradeMessage("The subscription has been adapted.");
             } else {
                 throw new Error(`Cannot upgrade the subscription.`);
             }
@@ -57,6 +60,20 @@ export default function SubscriptionUpgrade({subscriptionId}) {
 
     return (
         <div className="container">
+
+            {
+                upgradeMessage && <div className="mt-3 alert alert-success">
+                    {upgradeMessage}
+                    <div>
+                        <Link href="/">
+                            <button className="btn btn-primary">
+                                Home page
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+            }
+
             <p className="fs-5 text-muted my-4">
                 (1) Subscription to upgrade
             </p>
