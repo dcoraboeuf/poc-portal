@@ -32,9 +32,13 @@ export default function SubscriptionCreation() {
         setSelectedPriceId(price.id);
     }
 
+    const [submitting, setSubmitting] = useState(false);
+
     async function onSubscriptionSubmit(event) {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault();
+        // Starting the submission
+        setSubmitting(true);
         // Gets the customer id
         const customerId = user.user_metadata.stripe_customer_id;
         if (!customerId) {
@@ -111,16 +115,21 @@ export default function SubscriptionCreation() {
                             <code>https://`name`.ontrack.run</code>
                         </div>
                     </div>
-                    <div className="">
-                        <button type="submit"
-                                disabled={!selectedPriceId}
-                                className="btn btn-primary">
-                            Order
-                        </button>
-                        <a href="/" className="btn btn-link">
-                            Cancel
-                        </a>
-                    </div>
+
+                    <LoadingComponent
+                        loading={submitting}
+                        loadingMessage={"Creating the subscription..."}>
+                        <div>
+                            <button type="submit"
+                                    disabled={!selectedPriceId}
+                                    className="btn btn-primary">
+                                Order
+                            </button>
+                            <a href="/" className="btn btn-link">
+                                Cancel
+                            </a>
+                        </div>
+                    </LoadingComponent>
                 </FormTemplate>
 
             </div>
