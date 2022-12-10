@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import ProductGroup from "@components/sync/ProductGroup";
 import FormTemplate from "@components/common/FormTemplate";
 import {AuthContext} from "../contexts/authContext";
+import LoadingComponent from "@components/common/LoadingComponent";
 
 export default function SubscriptionCreation() {
 
@@ -9,6 +10,7 @@ export default function SubscriptionCreation() {
     const {user} = useContext(AuthContext);
 
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedPriceId, setSelectedPriceId] = useState(null);
     useEffect(() => {
         async function getProducts() {
@@ -16,6 +18,7 @@ export default function SubscriptionCreation() {
             if (res.ok) {
                 const data = await res.json();
                 setProducts(data);
+                setLoading(false);
             } else {
                 throw new Error(`Failed to fetch the list of available products (code = ${res.status}).`);
             }
@@ -82,11 +85,13 @@ export default function SubscriptionCreation() {
                     (1) Choose the product
                 </p>
 
-                <ProductGroup
-                    products={products}
-                    initialPrice={null}
-                    onPriceSelected={onPriceSelected}
-                />
+                <LoadingComponent loading={loading} loadingMessage={"Loading the products..."}>
+                    <ProductGroup
+                        products={products}
+                        initialPrice={null}
+                        onPriceSelected={onPriceSelected}
+                    />
+                </LoadingComponent>
 
                 <p className="fs-5 text-muted my-4">
                     (2) Choose the name for your instance
