@@ -83,3 +83,9 @@ exports.syncPortalInstanceCheckout = async ({name, customerId, priceId, cancelUr
         successUrl,
     }, "Cannot start the checkout session");
 }
+
+exports.syncPortalCustomerBilling = async ({customerId, returnUrl}) => {
+    return syncPost(`rest/portal/customer/${customerId}/billing`, {
+        returnUrl,
+    }, "Cannot start the billing portal session");
+}

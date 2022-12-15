@@ -14,17 +14,17 @@ export default function Subscription({subscription, showOptions}) {
             customer_id: customerId,
             return_url: `${window.location.origin}`,
         };
-        const bpsURL = new URL(`${window.location.origin}/.netlify/functions/stripe-billing-portal-session`);
+        const bpsURL = new URL(`${window.location.origin}/.netlify/functions/sync-billing-portal-session`);
         for (let k in bpsParams) {
             bpsURL.searchParams.append(k, bpsParams[k]);
         }
         const bpsRes = await fetch(bpsURL);
         if (!bpsRes.ok) {
-            throw new Error(`Cannot start the Stripe billing portal session.`);
+            throw new Error(`Cannot start the billing portal session.`);
         }
         const bpsInfo = await bpsRes.json();
         // Redirects to the Stripe billing portal URL
-        window.location = bpsInfo.billingPortal.url;
+        window.location = bpsInfo.url;
     };
 
     return <PortalCard
