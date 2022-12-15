@@ -63,7 +63,7 @@ export default function SubscriptionCreation() {
             success_url: `${window.location.origin}/subscriptions/success?name=${instanceName}`,
             customer_id: customerId,
         };
-        const checkoutURL = new URL(`${window.location.origin}/.netlify/functions/stripe-checkout-session`);
+        const checkoutURL = new URL(`${window.location.origin}/.netlify/functions/sync-checkout-session`);
         for (let k in checkoutParams) {
             checkoutURL.searchParams.append(k, checkoutParams[k]);
         }
@@ -72,8 +72,14 @@ export default function SubscriptionCreation() {
             throw new Error(`Cannot start the Stripe checkout session.`);
         }
         const checkoutInfo = await checkoutRes.json();
-        // Redirects to the Stripe checkout URL
-        window.location = checkoutInfo.checkout.url;
+        // If URL, redirects to the Stripe checkout URL
+        if (checkoutInfo.url) {
+            window.location = checkoutInfo.url;
+        }
+        // If a message, displays it
+        else if (checkoutInfo.message) {
+            throw new Error(checkoutInfo.message);
+        }
     }
 
     return (
