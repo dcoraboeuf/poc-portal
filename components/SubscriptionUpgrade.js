@@ -57,7 +57,7 @@ export default function SubscriptionUpgrade({subscriptionId}) {
     const launchUpgrade = async () => {
         if (selectedPrice && subscription) {
             setUpgrading(true);
-            const res = await fetch(`/.netlify/functions/stripe-upgrade-subscription?subscriptionId=${subscriptionId}&priceId=${selectedPrice.id}`);
+            const res = await fetch(`/.netlify/functions/sync-upgrade-subscription?subscriptionId=${subscriptionId}&priceId=${selectedPrice.id}`);
             if (res.ok) {
                 setUpgrading(false);
                 setUpgradedCount(upgradedCount + 1)
