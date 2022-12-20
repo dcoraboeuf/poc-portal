@@ -90,6 +90,13 @@ exports.syncPortalCustomerBilling = async ({customerId, returnUrl}) => {
     }, "Cannot start the billing portal session");
 }
 
+exports.syncPortalCustomerCreate = async ({email, fullName}) => {
+    return syncPost(`rest/portal/customer`, {
+        email,
+        fullName,
+    }, "Cannot create a customer");
+}
+
 exports.syncPortalSubscriptionUpgrade = async ({subscriptionId, priceId}) => {
     return syncPost(`rest/portal/subscription/${subscriptionId}/upgrade`, {
         priceId,

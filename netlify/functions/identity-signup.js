@@ -1,4 +1,4 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const {syncPortalCustomerCreate} = require("./sync/syncClient");
 
 /**
  * This hook is called upon the registration of a new customer in the portal.
@@ -6,11 +6,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 exports.handler = async (event) => {
     const {user} = JSON.parse(event.body);
 
-    // Creates a new customer in Stripe
-    const customer = await stripe.customers.create({name: user.user_metadata.full_name, email: user.email});
-    console.log({
-        user: user,
-        customer: customer,
+    // Creates a new customer in Pro Sync
+    const {customer} = await syncPortalCustomerCreate({
+        email: user.email,
+        fullName: user.user_metadata.full_name,
     });
 
     // Assign a role to the identity in Netlify
