@@ -12,7 +12,8 @@ export default function SubscriptionList() {
     useEffect(() => {
         async function getSubscriptions() {
             if (user) {
-                const res = await fetch(`/.netlify/functions/sync-get-subscriptions?customerId=${user.user_metadata.stripe_customer_id}`);
+                console.log({user});
+                const res = await fetch(`/.netlify/functions/sync-get-subscriptions?customerId=${user.app_metadata.stripe_customer_id}`);
                 if (res.ok) {
                     const data = await res.json();
                     setSubscriptions(data);

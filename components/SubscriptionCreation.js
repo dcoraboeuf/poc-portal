@@ -40,7 +40,7 @@ export default function SubscriptionCreation() {
         // Starting the submission
         setSubmitting(true);
         // Gets the customer id
-        const customerId = user.user_metadata.stripe_customer_id;
+        const customerId = user.app_metadata.stripe_customer_id;
         if (!customerId) {
             throw new Error("Cannot proceed because to customer ID was found associated to your profile.");
         }

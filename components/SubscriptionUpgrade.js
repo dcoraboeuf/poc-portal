@@ -18,7 +18,7 @@ export default function SubscriptionUpgrade({subscriptionId}) {
             setLoadingSubscription(true);
             setLoadingProducts(true);
             if (user && subscriptionId) {
-                const res = await fetch(`/.netlify/functions/sync-get-subscription?customerId=${user.user_metadata.stripe_customer_id}&subscriptionId=${subscriptionId}`);
+                const res = await fetch(`/.netlify/functions/sync-get-subscription?customerId=${user.app_metadata.stripe_customer_id}&subscriptionId=${subscriptionId}`);
                 if (res.ok) {
                     const loadedSubscription = await res.json();
                     setSubscription(loadedSubscription);

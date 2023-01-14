@@ -9,7 +9,7 @@ export default function Subscription({subscription, showOptions}) {
     const {user} = useContext(AuthContext);
 
     const billingPortal = async () => {
-        const customerId = user.user_metadata.stripe_customer_id;
+        const customerId = user.app_metadata.stripe_customer_id;
         const bpsParams = {
             customer_id: customerId,
             return_url: `${window.location.origin}`,
