@@ -3,8 +3,11 @@ import ProductGroup from "@components/sync/ProductGroup";
 import FormTemplate from "@components/common/FormTemplate";
 import {AuthContext} from "../contexts/authContext";
 import LoadingComponent from "@components/common/LoadingComponent";
+import {EnvContext} from "../contexts/envContext";
 
 export default function SubscriptionCreation() {
+
+    const {domain} = useContext(EnvContext);
 
     // Gets the customer ID
     const {user} = useContext(AuthContext);
@@ -118,7 +121,7 @@ export default function SubscriptionCreation() {
                         <div className="form-text">
                             The URL of your Ontrack installation will be
                             &nbsp;
-                            <code>https://`name`.ontrack.run</code>
+                            <code>https://`name`.{domain}</code>
                         </div>
                     </div>
 

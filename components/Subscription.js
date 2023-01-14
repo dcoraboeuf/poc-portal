@@ -3,10 +3,12 @@ import {useContext} from "react";
 import {AuthContext} from "../contexts/authContext";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {EnvContext} from "../contexts/envContext";
 
 export default function Subscription({subscription, showOptions}) {
 
     const {user} = useContext(AuthContext);
+    const {domain} = useContext(EnvContext);
 
     const billingPortal = async () => {
         const customerId = user.app_metadata.stripe_customer_id;
@@ -30,7 +32,7 @@ export default function Subscription({subscription, showOptions}) {
     return <PortalCard
         header={
             <>
-                <a href={`https://${subscription.provisioningName}.ontrack.run`}
+                <a href={`https://${subscription.provisioningName}.${domain}`}
                    target="_blank">{subscription.provisioningName}</a>
             </>
         }
